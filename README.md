@@ -1,28 +1,15 @@
-# Vortex3D Modeler v1
+# Vortex3D Core v0.0.1
 
-Terminal-first C++ 3D modeling core prototype.
+Foundation layer for Vortex3D.
 
-Features:
-- Command shell
-- Basic mesh creation
-- Cube generation
-- Transform placeholders
-- Export-ready architecture
+Goals:
+- Universal scene representation
+- Import/export architecture
+- Editable geometry foundation
+- Renderer-independent core
 
 Build:
-```
 mkdir build
 cd build
 cmake ..
 cmake --build .
-```
-
-Run:
-```
-./vortex3d
-```
-
-Architecture targets:
-- x86 32-bit
-- x86_64 64-bit
-- Android NDK later
