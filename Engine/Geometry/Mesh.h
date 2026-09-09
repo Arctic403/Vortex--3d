@@ -5,18 +5,24 @@
 struct Vertex
 {
     Vector3 position;
+    Vector3 normal;
+};
+
+struct Edge
+{
+    unsigned int a = 0;
+    unsigned int b = 0;
 };
 
 struct Face
 {
-    unsigned int a;
-    unsigned int b;
-    unsigned int c;
+    std::vector<unsigned int> vertices;
 };
 
 class Mesh
 {
 public:
     std::vector<Vertex> vertices;
+    std::vector<Edge> edges;
     std::vector<Face> faces;
 };

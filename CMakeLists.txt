@@ -6,3 +6,5 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(vortex_core
     Tests/main.cpp
 )
+
+target_include_directories(vortex_core PRIVATE Engine)
