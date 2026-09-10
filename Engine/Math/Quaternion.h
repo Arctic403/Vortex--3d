@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Vortex
+{
 struct Quaternion
 {
     float x = 0;
@@ -7,3 +9,4 @@ struct Quaternion
     float z = 0;
     float w = 1;
 };
+}

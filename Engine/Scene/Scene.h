@@ -2,14 +2,14 @@
 #include <vector>
 #include "Node.h"
 
+namespace Vortex
+{
 class Scene
 {
 public:
-    std::vector<Node*> nodes;
-
     ~Scene()
     {
-        for(auto* node : nodes)
+        for(Node* node : nodes)
             delete node;
     }
 
@@ -19,4 +19,8 @@ public:
         nodes.push_back(node);
         return node;
     }
+
+private:
+    std::vector<Node*> nodes;
 };
+}

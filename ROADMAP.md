@@ -18,25 +18,10 @@ Remaining:
 - [ ] Engine version system
 - [ ] Unit test framework
 
-## Next Build Targets
-
+Next:
 - [ ] Matrix4
 - [ ] Upgrade Mesh to half-edge topology
 - [ ] Asset manager
 - [ ] OBJ importer stub
 - [ ] OBJ exporter stub
 - [ ] Resource handles
-
-## Future Milestones
-
-1. Universal Asset System
-2. Geometry Kernel
-3. Import/Export Pipeline
-4. Vortex Terminal
-5. Native .vtx Format
-6. Renderer
-7. Editor
-8. Modeling Tools
-9. VortexScript
-10. AI Layer
-11. Ironvale Pipeline
