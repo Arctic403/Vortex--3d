@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(Vortex3D_Core VERSION 0.0.3 LANGUAGES CXX)
+project(Vortex3D_Core VERSION 0.0.4 LANGUAGES CXX)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 

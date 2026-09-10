@@ -2,7 +2,7 @@
 
 # Foundation Lock Requirement
 
-## STATUS: FOUNDATION LOCKED (v0.0.3)
+## STATUS: FOUNDATION LOCKED (v0.0.4)
 
 Foundation systems must be hardened before feature expansion.
 
@@ -51,6 +51,25 @@ These are modeling features, not kernel blockers.
 - [x] UUID collision hardening
 - [x] Move-only `Result<T>` support
 - [x] CTest foundation regression suite
+
+---
+
+## Scene Foundation
+
+- [x] UUID-backed scene nodes
+- [x] Automatic master scene collection
+- [x] Nested scene collections
+- [x] Multi-collection node linking
+- [x] Active collection tracking
+- [x] Collection visibility, selectability, and renderability
+- [x] Parent-state propagation for collection flags
+- [x] Duplicate-link protection
+- [x] Node and collection cycle prevention
+- [x] Cross-scene reference protection
+- [x] Safe node unlink and deletion behavior
+- [x] Content-preserving collection deletion
+- [x] Scene hierarchy and ownership validation
+- [x] Scene collection regression tests
 
 ---
 

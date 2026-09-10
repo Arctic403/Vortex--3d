@@ -6,9 +6,14 @@ namespace Vortex
 class Object
 {
 public:
+    Object() = default;
+    Object(const Object&) = delete;
+    Object& operator=(const Object&) = delete;
+    Object(Object&&) = delete;
+    Object& operator=(Object&&) = delete;
     virtual ~Object() = default;
 
-    UUID GetID() const
+    [[nodiscard]] UUID GetID() const noexcept
     {
         return id;
     }

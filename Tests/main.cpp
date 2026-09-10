@@ -2,6 +2,7 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <type_traits>
 
 #include "Core/EngineVersion.h"
 #include "Core/Object.h"
@@ -202,16 +203,119 @@ void TestCore()
 
 void TestScene()
 {
+    static_assert(!std::is_copy_constructible_v<Vortex::Node>);
+    static_assert(!std::is_copy_constructible_v<Vortex::SceneCollection>);
+    static_assert(!std::is_move_constructible_v<Vortex::Scene>);
+
     Vortex::Scene scene;
     Vortex::Scene other;
+    auto* master = scene.MasterCollection();
+    Check(master != nullptr && scene.ActiveCollection() == master,
+          "scene creates active master collection");
+    Check(master->Name() == "Scene Collection" && master->Parent() == nullptr,
+          "master collection identity");
+    Check(scene.Collections().size() == 1,
+          "new scene owns exactly one collection");
+
     auto* root = scene.CreateNode("root");
     auto* child = scene.CreateNode("child", root);
     auto* foreign = other.CreateNode("foreign");
     Check(root != nullptr && child != nullptr, "scene creates nodes");
-    Check(child->parent == root && root->children.size() == 1,
+    Check(child->Parent() == root && root->Children().size() == 1,
           "scene establishes hierarchy");
+    Check(scene.IsLinked(master, root) && scene.IsLinked(master, child),
+          "new nodes link to the active collection");
     Check(scene.CreateNode("invalid", foreign) == nullptr,
           "scene rejects foreign parent");
+
+    auto* environment = scene.CreateCollection("Environment");
+    auto* props = scene.CreateCollection("Props", environment);
+    auto* characters = scene.CreateCollection("Characters");
+    Check(environment != nullptr && props != nullptr && characters != nullptr,
+          "scene creates nested collections");
+    Check(environment->Parent() == master && props->Parent() == environment,
+          "collection hierarchy is established");
+    Check(!scene.CreateCollection("Foreign", other.MasterCollection()),
+          "scene rejects foreign collection parent");
+
+    Check(scene.SetActiveCollection(props), "set active collection");
+    auto* propNode = scene.CreateNode("Crate");
+    Check(propNode != nullptr && scene.IsLinked(props, propNode),
+          "active collection receives new nodes");
+    Check(scene.LinkNode(characters, propNode),
+          "one node can link to multiple collections");
+    Check(!scene.LinkNode(characters, propNode),
+          "duplicate collection link is rejected");
+    Check(scene.CollectionsFor(propNode).size() == 2,
+          "node collection memberships are discoverable");
+    Check(scene.FindNode(propNode->GetID()) == propNode &&
+          scene.FindCollection(props->GetID()) == props,
+          "scene objects are found by UUID");
+
+    environment->SetVisible(false);
+    Check(!props->IsEffectivelyVisible() && !props->IsEffectivelySelectable(),
+          "parent visibility propagates to child collection");
+    environment->SetVisible(true);
+    environment->SetSelectable(false);
+    Check(!props->IsEffectivelySelectable(),
+          "parent selectability propagates to child collection");
+    environment->SetSelectable(true);
+    environment->SetRenderable(false);
+    Check(!props->IsEffectivelyRenderable(),
+          "parent renderability propagates to child collection");
+    environment->SetRenderable(true);
+    props->SetName("Set Dressing");
+    Check(props->Name() == "Set Dressing", "collection can be renamed");
+
+    Check(!scene.ReparentCollection(environment, props),
+          "collection cycle is rejected");
+    Check(!scene.ReparentCollection(master, props),
+          "master collection cannot be reparented");
+    Check(scene.ReparentCollection(props, master) &&
+          scene.ReparentCollection(props, environment),
+          "collection can be safely reparented");
+    Check(!scene.SetActiveCollection(other.MasterCollection()),
+          "foreign active collection is rejected");
+    Check(!scene.LinkNode(other.MasterCollection(), root) &&
+          !scene.LinkNode(master, foreign),
+          "cross-scene links are rejected");
+
+    Check(!scene.SetNodeParent(root, child), "node parent cycle is rejected");
+    Check(scene.SetNodeParent(child, nullptr) && child->Parent() == nullptr,
+          "node can be detached from transform parent");
+    Check(scene.SetNodeParent(child, root), "node can be safely reparented");
+
+    auto* temporary = scene.CreateCollection("Temporary");
+    auto* nested = scene.CreateCollection("Nested", temporary);
+    Check(scene.SetActiveCollection(temporary),
+          "temporary collection can become active");
+    auto* preserved = scene.CreateNode("Preserved");
+    const auto temporaryId = temporary->GetID();
+    Check(scene.DeleteCollection(temporary), "collection can be deleted");
+    Check(scene.FindCollection(temporaryId) == nullptr &&
+          scene.ActiveCollection() == master,
+          "deleting active collection restores active parent");
+    Check(nested->Parent() == master && scene.IsLinked(master, preserved),
+          "deleting collection preserves children and node contents");
+    Check(!scene.DeleteCollection(master), "master collection cannot be deleted");
+
+    Check(scene.LinkNode(characters, root),
+          "node can be linked before deletion");
+    const auto rootId = root->GetID();
+    Check(scene.DeleteNode(root), "node can be deleted");
+    Check(scene.FindNode(rootId) == nullptr && child->Parent() == nullptr,
+          "node deletion detaches transform children");
+    Check(scene.CollectionsFor(child).size() == 1,
+          "deleting parent does not delete child node");
+
+    Check(scene.UnlinkNode(characters, propNode), "node can be unlinked");
+    Check(!scene.UnlinkNode(characters, propNode),
+          "missing collection link is reported");
+    Check(scene.Contains(propNode), "unlinking does not delete node");
+
+    std::string error;
+    Check(scene.Validate(&error), "scene collection topology validates");
+    Check(error.empty(), "successful scene validation clears error");
 }
 }
 
