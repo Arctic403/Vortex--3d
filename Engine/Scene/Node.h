@@ -3,6 +3,8 @@
 #include <vector>
 #include "Transform.h"
 
+namespace Vortex
+{
 class Node
 {
 public:
@@ -11,3 +13,4 @@ public:
     Node* parent = nullptr;
     std::vector<Node*> children;
 };
+}

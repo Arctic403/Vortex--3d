@@ -2,7 +2,7 @@
 
 # Foundation Lock Requirement
 
-## STATUS: BLOCKING
+## STATUS: FOUNDATION LOCKED (v0.0.3)
 
 Foundation systems must be hardened before feature expansion.
 
@@ -18,6 +18,10 @@ Foundation systems must be hardened before feature expansion.
 - [x] Twin edge support
 - [x] Edge linking support
 - [x] Topology validation
+- [x] Reciprocal twin and endpoint validation
+- [x] Closed, face-consistent loop validation
+- [x] Vertex/face representative validation
+- [x] Invalid topology regression tests
 
 Higher-level modeling operations:
 - [ ] Edge split
@@ -42,6 +46,11 @@ These are modeling features, not kernel blockers.
 - [x] Vector operators
 - [x] Half-edge kernel foundation
 - [x] Mesh validation foundation
+- [x] Unified `Vortex` namespace
+- [x] Scene/import/export type compatibility
+- [x] UUID collision hardening
+- [x] Move-only `Result<T>` support
+- [x] CTest foundation regression suite
 
 ---
 

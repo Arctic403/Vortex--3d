@@ -1,4 +1,4 @@
-# Vortex3D Core v0.0.1
+# Vortex3D Core v0.0.3
 
 Foundation layer for Vortex3D.
 
@@ -8,8 +8,10 @@ Goals:
 - Editable geometry foundation
 - Renderer-independent core
 
-Build:
-mkdir build
-cd build
-cmake ..
-cmake --build .
+Build and test:
+
+```sh
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
+```

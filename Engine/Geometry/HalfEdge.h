@@ -4,7 +4,7 @@
 
 namespace Vortex
 {
-constexpr uint32_t InvalidIndex = std::numeric_limits<uint32_t>::max();
+inline constexpr uint32_t InvalidIndex = std::numeric_limits<uint32_t>::max();
 
 struct HalfEdge
 {
@@ -13,8 +13,9 @@ struct HalfEdge
     uint32_t twin = InvalidIndex;
     uint32_t face = InvalidIndex;
 
-    bool HasNext() const { return next != InvalidIndex; }
-    bool HasTwin() const { return twin != InvalidIndex; }
-    bool HasFace() const { return face != InvalidIndex; }
+    [[nodiscard]] bool HasVertex() const noexcept { return vertex != InvalidIndex; }
+    [[nodiscard]] bool HasNext() const noexcept { return next != InvalidIndex; }
+    [[nodiscard]] bool HasTwin() const noexcept { return twin != InvalidIndex; }
+    [[nodiscard]] bool HasFace() const noexcept { return face != InvalidIndex; }
 };
 }

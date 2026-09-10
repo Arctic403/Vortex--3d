@@ -14,10 +14,14 @@ public:
     {
     }
 
-    uint64_t ID() const
+    [[nodiscard]] uint64_t ID() const noexcept
     {
         return id;
     }
+
+    [[nodiscard]] bool IsValid() const noexcept { return id != 0; }
+    explicit operator bool() const noexcept { return IsValid(); }
+    friend bool operator==(const ResourceHandle&, const ResourceHandle&) = default;
 
 private:
     uint64_t id = 0;

@@ -1,10 +1,13 @@
 #pragma once
 
+namespace Vortex
+{
 class Scene;
 
 class Exporter
 {
 public:
     virtual ~Exporter() = default;
-    virtual bool Export(Scene* scene, const char* path) = 0;
+    [[nodiscard]] virtual bool Export(const Scene& scene, const char* path) = 0;
 };
+}

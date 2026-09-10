@@ -1,28 +1,34 @@
 #pragma once
+
+#include <cstdint>
 #include <vector>
+
 #include "../Math/Vector3.h"
 
-struct Vertex
+namespace Vortex
+{
+struct MeshVertex
 {
     Vector3 position;
     Vector3 normal;
 };
 
-struct Edge
+struct MeshEdge
 {
-    unsigned int a = 0;
-    unsigned int b = 0;
+    uint32_t a = 0;
+    uint32_t b = 0;
 };
 
-struct Face
+struct MeshFace
 {
-    std::vector<unsigned int> vertices;
+    std::vector<uint32_t> vertices;
 };
 
 class Mesh
 {
 public:
-    std::vector<Vertex> vertices;
-    std::vector<Edge> edges;
-    std::vector<Face> faces;
+    std::vector<MeshVertex> vertices;
+    std::vector<MeshEdge> edges;
+    std::vector<MeshFace> faces;
 };
+}
