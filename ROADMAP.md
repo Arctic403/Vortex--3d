@@ -1,6 +1,6 @@
 # Vortex3D Master Roadmap
 
-## Milestone 0 — Foundation Lock (IN PROGRESS)
+## Milestone 0 — Foundation Lock
 
 Completed:
 - [x] Roadmap tracking
@@ -14,15 +14,19 @@ Completed:
 - [x] Logging foundation
 - [x] Result/error foundation
 - [x] Smart ownership foundation
+- [x] Matrix4 foundation
+- [x] Vector math operators
+- [x] Half-edge groundwork
+- [x] Mesh validation foundation
+- [x] Resource handle foundation
 
 Remaining:
 - [ ] Complete unit test framework
-- [ ] Matrix4
 - [ ] Memory profiling rules
 
 Next:
-- [ ] Upgrade Mesh to half-edge topology
+- [ ] Complete half-edge mesh kernel
 - [ ] Asset manager
-- [ ] Resource handles
 - [ ] OBJ importer stub
 - [ ] OBJ exporter stub
+- [ ] glTF pipeline planning
