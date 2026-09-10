@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <vector>
 #include "Node.h"
 
@@ -7,20 +8,15 @@ namespace Vortex
 class Scene
 {
 public:
-    ~Scene()
-    {
-        for(Node* node : nodes)
-            delete node;
-    }
-
     Node* CreateNode()
     {
-        Node* node = new Node();
-        nodes.push_back(node);
-        return node;
+        auto node = std::make_unique<Node>();
+        Node* result = node.get();
+        nodes.push_back(std::move(node));
+        return result;
     }
 
 private:
-    std::vector<Node*> nodes;
+    std::vector<std::unique_ptr<Node>> nodes;
 };
 }

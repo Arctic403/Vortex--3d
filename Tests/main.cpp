@@ -1,8 +1,21 @@
 #include <iostream>
+#include "../Engine/Core/Logger.h"
+#include "../Engine/Core/EngineVersion.h"
 
 int main()
 {
-    std::cout << "Vortex3D Core v0.0.1\n";
-    std::cout << "Core foundation test passed\n";
+    Vortex::Logger::Info("Vortex3D foundation test");
+
+    std::cout
+        << "Version "
+        << Vortex::EngineVersion::Major
+        << "."
+        << Vortex::EngineVersion::Minor
+        << "."
+        << Vortex::EngineVersion::Patch
+        << std::endl;
+
+    std::cout << "Foundation tests passed" << std::endl;
+
     return 0;
 }

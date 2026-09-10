@@ -10,18 +10,19 @@ Completed:
 - [x] Base Object system
 - [x] Quaternion foundation
 - [x] Scene foundation
+- [x] Engine version system
+- [x] Logging foundation
+- [x] Result/error foundation
+- [x] Smart ownership foundation
 
 Remaining:
-- [ ] Memory ownership rules
-- [ ] Logging system
-- [ ] Error handling
-- [ ] Engine version system
-- [ ] Unit test framework
+- [ ] Complete unit test framework
+- [ ] Matrix4
+- [ ] Memory profiling rules
 
 Next:
-- [ ] Matrix4
 - [ ] Upgrade Mesh to half-edge topology
 - [ ] Asset manager
+- [ ] Resource handles
 - [ ] OBJ importer stub
 - [ ] OBJ exporter stub
-- [ ] Resource handles
